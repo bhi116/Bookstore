@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
     <title>Booklist</title>
 </head>
 <body>
     <h1>Books</h1>
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publication Year</th>
                 <th>ISBN</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +25,11 @@
                 <td th:text="${book.author}"></td>
                 <td th:text="${book.publicationYear}"></td>
                 <td th:text="${book.isbn}"></td>
-                <td><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+                <td th:text="${book.price}"></td>
+                <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
         </tbody>
     </table>
-    <a href="/add">Add Book</a>
+    <a href="/add" class="btn btn-success" >Add Book</a>
 </body>
 </html>
