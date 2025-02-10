@@ -22,38 +22,38 @@ public class BookController {
     @GetMapping("/booklist")
     public String bookList(Model model) {
         model.addAttribute("books", repository.findAll());
-        return "booklist";
+        return "booklist";      //booklist.html
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add")     //lisää kirja
     public String addBook(Model model){
         model.addAttribute("book", new Book());
-        return "addbook";
+        return "addbook";       //addbook.html
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")       //tallenna kirja
     public String save(Book book){
         repository.save(book);
         return "redirect:booklist";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")     //poista kirja
     public String deleteBook(@PathVariable("id") Long bookId, Model model){
         repository.deleteById(bookId);
         return "redirect:/booklist";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")       //muokkaa kirjaa
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         Optional<Book> book = repository.findById(bookId);
         if (book.isPresent()) {
             model.addAttribute("book", book.get());
-            return "editbook";
+            return "editbook";      //editbook.html
         }
-        return "redirect:/booklist";
+        return "redirect:/booklist";        //jos kirjaa ei löydy -> booklist.html
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update/{id}")        //päivittää muokatun kirjan tiedot
     public String updateBook(@PathVariable("id") Long bookId, @ModelAttribute Book updatedBook) {
         Optional<Book> bookData = repository.findById(bookId);
         if (bookData.isPresent()) {
