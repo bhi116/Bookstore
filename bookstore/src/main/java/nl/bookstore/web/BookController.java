@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import nl.bookstore.domain.Book;
 import nl.bookstore.domain.BookRepository;
+import nl.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/booklist")
     public String bookList(Model model) {
@@ -27,6 +31,7 @@ public class BookController {
 
     @GetMapping("/add")     //lisää kirja
     public String addBook(Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("book", new Book());
         return "addbook";       //addbook.html
     }
