@@ -20,18 +20,6 @@ public class BookstoreApplication {
 	@Bean
 	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {	
-			// lisätään kirjoja
-			Book b1 = new Book("Harry Potter ja liekehtivä pikari", "J.K. Rowling", 2001, 
-			"9789513187057", 30.95);
-			Book b2 = new Book("Harry Potter ja salaisuuksien kammio", "J.K. Rowling", 1999, 
-			"9789520401825", 25.95);
-			Book b3 = new Book("Harry Potter ja Feeniksin kilta", "J.K. Rowling", 2003, 
-			"9789520401955", 28.95);
-
-			// tallennetaan kirjat tietokantaan
-			bookRepository.save(b1);
-			bookRepository.save(b2);
-			bookRepository.save(b3);
 
 			// lisätään kategorioita
 			Category adventure = new Category("Adventure");
@@ -42,6 +30,20 @@ public class BookstoreApplication {
 			categoryRepository.save(adventure);
 			categoryRepository.save(comic);
 			categoryRepository.save(fantasy);
+
+			// lisätään kirjoja
+			Book b1 = new Book("Harry Potter ja liekehtivä pikari", "J.K. Rowling", 2001, 
+			"9789513187057", 30.95, fantasy);
+			Book b2 = new Book("Harry Potter ja salaisuuksien kammio", "J.K. Rowling", 1999, 
+			"9789520401825", 25.95, fantasy);
+			Book b3 = new Book("Harry Potter ja Feeniksin kilta", "J.K. Rowling", 2003, 
+			"9789520401955", 28.95, fantasy);
+
+			// tallennetaan kirjat tietokantaan
+			bookRepository.save(b1);
+			bookRepository.save(b2);
+			bookRepository.save(b3);
+
 
 		};
 	}
