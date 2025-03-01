@@ -1,7 +1,5 @@
 package nl.bookstore.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +21,6 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
     public Book(String title, String author, int publicationYear, String isbn, double price, Category category) {
@@ -95,10 +92,14 @@ public class Book {
         this.category = category;
     }
 
+    public Long getCategoryId(){
+        return category != null ? category.getCategoryid(): null;
+    }
+
     @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
-                + ", isbn=" + isbn + ", price=" + price + ", category=" + category.getName() + "]";
+                + ", isbn=" + isbn + ", price=" + price + ", category=" + (category != null ? category.getName() : "null") + "]";
     }
 
     

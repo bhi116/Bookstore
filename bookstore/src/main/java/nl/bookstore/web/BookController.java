@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import nl.bookstore.domain.Book;
 import nl.bookstore.domain.BookRepository;
 import nl.bookstore.domain.CategoryRepository;
@@ -18,39 +19,40 @@ import nl.bookstore.domain.CategoryRepository;
 public class BookController {
 
     @Autowired
-    private BookRepository repository;
+    private BookRepository bookRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @GetMapping("/booklist")
     public String bookList(Model model) {
-        model.addAttribute("books", repository.findAll());
+        model.addAttribute("books", bookRepository.findAll());
         return "booklist";      //booklist.html
     }
 
     @GetMapping("/add")     //lisää kirja
     public String addBook(Model model){
-        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";       //addbook.html
     }
 
     @PostMapping("/save")       //tallenna kirja
-    public String save(Book book){
-        repository.save(book);
+    public String save(@ModelAttribute Book book){
+        bookRepository.save(book);
+        System.out.println("Tallennettu kirja: " + book);
         return "redirect:booklist";
     }
 
     @GetMapping("/delete/{id}")     //poista kirja
     public String deleteBook(@PathVariable("id") Long bookId, Model model){
-        repository.deleteById(bookId);
+        bookRepository.deleteById(bookId);
         return "redirect:/booklist";
     }
 
     @GetMapping("/edit/{id}")       //muokkaa kirjaa
     public String editBook(@PathVariable("id") Long bookId, Model model) {
-        Optional<Book> book = repository.findById(bookId);
+        Optional<Book> book = bookRepository.findById(bookId);
         if (book.isPresent()) {
             model.addAttribute("book", book.get());
             return "editbook";      //editbook.html
@@ -60,7 +62,7 @@ public class BookController {
 
     @PostMapping("/update/{id}")        //päivittää muokatun kirjan tiedot
     public String updateBook(@PathVariable("id") Long bookId, @ModelAttribute Book updatedBook) {
-        Optional<Book> bookData = repository.findById(bookId);
+        Optional<Book> bookData = bookRepository.findById(bookId);
         if (bookData.isPresent()) {
             Book book = bookData.get();
             book.setTitle(updatedBook.getTitle());
@@ -69,7 +71,7 @@ public class BookController {
             book.setIsbn(updatedBook.getIsbn());
             book.setPrice(updatedBook.getPrice());
 
-            repository.save(book);
+            bookRepository.save(book);
         }
         return "redirect:/booklist";
     }

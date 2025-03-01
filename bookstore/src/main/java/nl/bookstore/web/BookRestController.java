@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import nl.bookstore.domain.Book;
 import nl.bookstore.domain.BookRepository;
 
 @Controller
+@RequestMapping("/api")
 public class BookRestController {
 
     @Autowired
@@ -27,6 +31,11 @@ public class BookRestController {
     @GetMapping("/books/{id}")
     public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId){
         return bookRepository.findById(bookId);
+    }
+
+    @PostMapping("/books")
+    public @ResponseBody Book saveBookRest(@RequestBody Book book){
+        return bookRepository.save(book);
     }
 
 }
