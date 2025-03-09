@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form th:action="@{/login}" method="post">
+            <div style="width: 250px;" class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" required/>
+            </div>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <div style="width: 250px;" class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required/>
+            </div>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <div th:if="${param.error}">
+            <p class="text-danger">Invalid username or password</p>
+        </div>
+    </div>
+</body>
+</html>
