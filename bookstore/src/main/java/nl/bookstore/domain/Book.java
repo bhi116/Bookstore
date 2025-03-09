@@ -98,8 +98,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
-                + ", isbn=" + isbn + ", price=" + price + ", category=" + (category != null ? category.getName() : "null") + "]";
+    return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
+    + ", isbn=" + isbn + ", price=" + price + ", category=" + category + "]";
     }
 
     

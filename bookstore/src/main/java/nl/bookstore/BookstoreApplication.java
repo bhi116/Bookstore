@@ -43,6 +43,11 @@ public class BookstoreApplication {
             categoryRepository.save(comic);
             categoryRepository.save(fantasy);
 
+			log.info("fetch all categories");
+			for (Category category : categoryRepository.findAll()) { 
+				log.info(category.toString());
+			}
+
             // Lisätään kirjoja
             Book b1 = new Book("Harry Potter ja liekehtivä pikari", "J.K. Rowling", 2001, 
                 "9789513187057", 30.95, fantasy);
